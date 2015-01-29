@@ -1,7 +1,8 @@
 # Files
 *.iml
-*.project
-*.classpath
+#*.project
+#*.classpath
 
 # Folders
 /.settings
+/target
