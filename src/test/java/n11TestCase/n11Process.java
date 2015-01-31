@@ -24,6 +24,8 @@ public class n11Process {
 
   @Test
   public void testN11TestCase1() throws Exception {
+	//Turkish special characters are important for the test case
+	//On first import charaters might not be suitable for unicode, we must always check and correct them
     driver.get(baseUrl + "/");
     driver.findElement(By.cssSelector("img[alt=\"Alışverişin Uğurlu Adresi\"]")).click();
     try {
@@ -37,6 +39,8 @@ public class n11Process {
     } catch (Error e) {
       verificationErrors.append(e.toString());
     }
+    
+    //A sample account currently working with a simple password
     driver.findElement(By.id("email")).clear();
     driver.findElement(By.id("email")).sendKeys("asliaktugacar@gmail.com");
     driver.findElement(By.id("password")).clear();
@@ -49,6 +53,8 @@ public class n11Process {
     }
     driver.findElement(By.id("searchData")).click();
     driver.findElement(By.id("searchData")).clear();
+    
+    //In n11.com, "Samsung için" text seems to be a logical text choice to search and verify
     driver.findElement(By.id("searchData")).sendKeys("samsung");
     driver.findElement(By.cssSelector("span.icon.iconSearch")).click();
     try {
@@ -56,6 +62,9 @@ public class n11Process {
     } catch (Error e) {
       verificationErrors.append(e.toString());
     }
+    
+    //Search results may vary so as the 3rd result of this test case
+    //But, we are assuming the result do not change considering the case
     driver.findElement(By.linkText("2")).click();
     try {
       assertEquals("2", driver.findElement(By.cssSelector("div.productArea > div.pagination > div.pageInfo > input[name=\"currentPage\"]")).getAttribute("value"));
@@ -76,6 +85,8 @@ public class n11Process {
       verificationErrors.append(e.toString());
     }
     try {
+      //We could have search for the Id of the product that has been added to the link's Url,
+      //but, it seems like searching the name of the product works 
       assertEquals("Samsung Galaxy Note 3 Cep Telefonu", driver.findElement(By.linkText("Samsung Galaxy Note 3 Cep Telefonu")).getText());
     } catch (Error e) {
       verificationErrors.append(e.toString());
